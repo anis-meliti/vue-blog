@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation />
+      <Navigation  v-if="!navigationDisable"/>
       <router-view />
-      <Footer />
+      <Footer v-if="!navigationDisable" />
     </div>
   </div>
 </template>
@@ -16,12 +16,33 @@ export default {
   name: "app",
   components: { Navigation, Footer },
   data() {
-    return {};
+    return {
+      navigationDisable: null,
+    };
   },
-  created() {},
+  created() {
+    this.checkRoute();
+  },
   mounted() {},
-  methods: {},
-  watch: {},
+  methods: {
+    checkRoute() {
+      console.log("🚀 ~ file:* App.vue ~ line 32 ~ checkRoute ~  this.$route.name",  this.$route.name)
+      if (
+        this.$route.name === "Login" ||
+        this.$route.name === "Forgot Password" ||
+        this.$route.name === " Register"
+      ) {
+        this.navigationDisable = true;
+        return;
+      }
+      this.navigationDisable = false;
+    },
+  },
+  watch: {
+    $route() {
+      this.checkRoute();
+    },
+  },
 };
 </script>
 
