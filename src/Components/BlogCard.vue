@@ -1,6 +1,6 @@
 <template>
   <div class="blog-card">
-    <div class="icons">
+    <div class="icons" v-show="editPost">
       <div class="icon">
         <Edit class="edit" />
       </div>
@@ -19,14 +19,6 @@
         View the post <Arrow class="arrow" />
       </router-link>
     </div>
-    <div class="updates">
-      <div class="container">
-        <h2>never miss a post. Register for your free account today!</h2>
-        <router-link class="link" to="#">
-          Register for FireBlogs <Arrow class="arrow arrow-light" />
-        </router-link>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -41,6 +33,11 @@ export default {
     Arrow,
     Edit,
     Delete,
+  },
+  computed: {
+    editPost() {
+      return this.$store.state.editPost;
+    },
   },
 };
 </script>
@@ -150,5 +147,4 @@ export default {
     }
   }
 }
-
 </style>
