@@ -30,7 +30,7 @@ export default {
       if (
         this.$route.name === "Login" ||
         this.$route.name === "Forgot Password" ||
-        this.$route.name === " Register"
+        this.$route.name === "Register"
       ) {
         this.navigationDisable = true;
         return;
