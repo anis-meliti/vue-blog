@@ -3,8 +3,8 @@
     <div class="modal-content">
       <p>
         {{ this.modalMessage }}
-        <button @click="closeModal">Close</button>
       </p>
+        <button @click="closeModal">Close</button>
     </div>
   </div>
 </template>

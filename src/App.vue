@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <Navigation  v-if="!navigationDisable"/>
+      <Navigation v-if="!navigationDisable" />
       <router-view />
       <Footer v-if="!navigationDisable" />
     </div>
@@ -11,6 +11,8 @@
 <script>
 import Navigation from "./Components/Navigation.vue";
 import Footer from "./Components/Footer.vue";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "app",
@@ -22,14 +24,14 @@ export default {
   },
   created() {
     this.checkRoute();
+    console.log("Logged!", firebase.auth().currentUser.uid);
   },
   mounted() {},
   methods: {
     checkRoute() {
-      console.log("🚀 ~ file:* App.vue ~ line 32 ~ checkRoute ~  this.$route.name",  this.$route.name)
       if (
         this.$route.name === "Login" ||
-        this.$route.name === "Forgot Password" ||
+        this.$route.name === "ForgotPassword" ||
         this.$route.name === "Register"
       ) {
         this.navigationDisable = true;
@@ -134,6 +136,11 @@ button,
   pointer-events: none !important;
   cursor: none !important;
   background-color: rgba(128, 128, 128, 0.5) !important;
+}
+.error {
+  text-align: center;
+  font-size: 12px;
+  color: red;
 }
 
 .blog-card-wrap {
