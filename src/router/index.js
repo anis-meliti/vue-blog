@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: "/forgot-password",
-    name: "Forgot Password",
+    name: "ForgotPassword",
     component: ForgotPassword,
     meta: {
       title: "Forgot Password"
