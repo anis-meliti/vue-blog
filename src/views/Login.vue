@@ -3,10 +3,9 @@
     <form class="login">
       <p class="login-register">
         Don't have an account?
-        <router-link
-          class="router-link"
-          :to="{ name: 'Register' }"
-        >Register </router-link>
+        <router-link class="router-link" :to="{ name: 'Register' }"
+          >Register
+        </router-link>
       </p>
       <h2>Login to FireBlogs</h2>
       <div class="inputs">
@@ -22,8 +21,8 @@
       <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">
         Forgot your password ?</router-link
       >
-
-      <button>Sign In</button>
+      <div v-show="error" class="error">{{ this.errorMsg }}</div>
+      <button @click.prevent="signIn">Sign In</button>
       <div class="angle"></div>
     </form>
     <div class="background"></div>
@@ -33,6 +32,8 @@
 <script>
 import email from "../assets/Icons/envelope-regular.svg";
 import password from "../assets/Icons/lock-alt-solid.svg";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "Login",
@@ -42,9 +43,28 @@ export default {
   },
   data() {
     return {
-      email: null,
-      password: null,
+      email: "",
+      password: "",
+      error: null,
+      errorMsg: "",
     };
+  },
+
+  methods: {
+    signIn() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.push({ name: "Home" });
+          this.error = false;
+          this.errorMsg = "";
+          console.log("Logged!", firebase.auth().currentUser.uid);
+        }).catch(error => {
+          this.error = true;
+          this.errorMsg = error.message
+        });
+    },
   },
 };
 </script>
