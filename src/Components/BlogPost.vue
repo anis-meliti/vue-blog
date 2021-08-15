@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-wrapper no-user">
+  <div class="blog-wrapper" :class="{'no-user':!user}">
     <div class="blog-content">
       <div>
         <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
@@ -20,21 +20,22 @@
         :src="require(`../assets/blogPhotos/${post.photo}.jpg`)"
         alt="..."
       />
-      <img
-        v-else
-        :src="require(`../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)"
-        alt="..."
-      />
+      <img v-else :src="require(`../assets/blogPhotos/${post.blogCoverPhoto}.jpg`)" alt="..." />
     </div>
   </div>
 </template>
 <script>
-import Arrow from "../assets/Icons/arrow-right-light.svg";
+import Arrow from '../assets/Icons/arrow-right-light.svg';
 export default {
-  name: "blogPost",
-  props: ["post"],
+  name: 'blogPost',
+  props: ['post'],
   components: {
     Arrow,
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
@@ -42,8 +43,7 @@ export default {
 .blog-wrapper {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   @media (min-width: 700px) {
     min-height: 650px;
     max-height: 650px;
@@ -115,8 +115,7 @@ export default {
   .blog-photo {
     order: 1;
     flex: 3;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     @media (min-width: 700px) {
       order: 2;
     }
@@ -140,10 +139,10 @@ export default {
     }
   }
 }
-.no-user:first-child{
-    .blog-content{
-        background-color: #303030;
-        color: #fff;
-    }
+.no-user:first-child {
+  .blog-content {
+    background-color: #303030;
+    color: #fff;
+  }
 }
 </style>

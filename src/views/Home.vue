@@ -1,24 +1,16 @@
 <template>
   <div class="home">
-    <BlogPost :post="welcomeScreen" />
-    <BlogPost
-      :post="post"
-      v-for="(post, index) in sampleBlogPost"
-      :key="index"
-    />
+    <BlogPost v-if="!user" :post="welcomeScreen" />
+    <BlogPost :post="post" v-for="(post, index) in sampleBlogPost" :key="index" />
     <div class="blog-card-wrap">
       <div class="container">
         <h3>View recent blogs</h3>
         <div class="blog-cards">
-          <BlogCard
-            v-for="(post, index) in sampleBlogCards"
-            :post="post"
-            :key="index"
-          />
+          <BlogCard v-for="(post, index) in sampleBlogCards" :post="post" :key="index" />
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
         <h2>never miss a post. Register for your free account today!</h2>
         <router-link class="router-button" to="#">
@@ -30,36 +22,36 @@
 </template>
 
 <script>
-import BlogPost from "../Components/BlogPost.vue";
-import BlogCard from "../Components/BlogCard.vue";
-import Arrow from '../assets/Icons/arrow-right-light.svg'
+import BlogPost from '../Components/BlogPost.vue';
+import BlogCard from '../Components/BlogCard.vue';
+import Arrow from '../assets/Icons/arrow-right-light.svg';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     BlogPost,
     BlogCard,
-    Arrow
+    Arrow,
   },
   data() {
     return {
       welcomeScreen: {
-        title: "Welcome!",
+        title: 'Welcome!',
         blogPost:
           '"Weekly blog articles with all things programming including HTML, CSS, JavaScript and more. Register today to never miss a post! ',
         welcomeScreen: true,
-        photo: "coding",
+        photo: 'coding',
       },
       sampleBlogPost: [
         {
-          title: "this a filter Title!",
-          blogHTML: "This is a filter blog post title!",
-          blogCoverPhoto: "beautiful-stories",
+          title: 'this a filter Title!',
+          blogHTML: 'This is a filter blog post title!',
+          blogCoverPhoto: 'beautiful-stories',
         },
         {
-          title: "this a filter Title!",
-          blogHTML: "This is a filter blog post title!",
-          blogCoverPhoto: "designed-for-everyone",
+          title: 'this a filter Title!',
+          blogHTML: 'This is a filter blog post title!',
+          blogCoverPhoto: 'designed-for-everyone',
         },
       ],
     };
@@ -67,6 +59,9 @@ export default {
   computed: {
     sampleBlogCards() {
       return this.$store.state.sampleBlogCards;
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
 };
